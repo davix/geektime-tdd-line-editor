@@ -11,4 +11,9 @@ describe('line editor', () => {
         expect(editor.findOne('.0-anchor').getAttrs()).toMatchObject({x: 10, y: 10})
         expect(editor.findOne('.1-anchor').getAttrs()).toMatchObject({x: 30, y: 30})
     });
+    //TODO update anchor when line update
+    //TODO update control point when line update
+    //TODO change line points when dragging anchor
+    //TODO add new anchor on editor when dragging control point
+    //TODO remove anchor when double click anchor
 })
