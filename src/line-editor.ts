@@ -26,8 +26,19 @@ export class LineEditor extends Konva.Group {
 
     update() {
         let points = this.line!.points()
+        let pre = -1
         for (let i = 0; i < points.length/2; i++) {
-            this.findOne(`.${i}-anchor`).setAttrs({x:points[i*2], y:points[i*2+1] })
+            let curX = points[i*2]
+            let curY = points[i*2+1]
+            this.findOne(`.${i}-anchor`).setAttrs({x:curX, y:curY })
+            if (pre !== -1) {
+                let preX = points[pre*2]
+                let preY = points[pre*2+1]
+
+                this.findOne(`.${i}-control`).setAttrs(
+                    {x:preX+(curX-preX)/2, y:preY+(curY-preY)/2 })
+            }
+            pre = i
         }
     }
 }
