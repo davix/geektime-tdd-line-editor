@@ -40,6 +40,12 @@ export class LineEditor extends Konva.Group {
                     points[index*2+1] = e.target.y()
                     this.line!.points(points)
                 })
+        } else {
+            point.on('dragmove', (e) => {
+                let points = this.line!.points()
+                points.splice(index*2, 0, e.target.x(), e.target.y())
+                this.line!.points(points)
+            })
         }
         this.add(point)
         return point
