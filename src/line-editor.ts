@@ -15,24 +15,27 @@ export class LineEditor extends Konva.Group {
         for (let i = 0; i < points.length/2; i++) {
             let curX = points[i*2]
             let curY = points[i*2+1]
-            this.get(`${i}-anchor`).setAttrs({x:curX, y:curY })
+            this.get(i, `anchor`).setAttrs({x:curX, y:curY })
             if (pre !== -1) {
                 let preX = points[pre*2]
                 let preY = points[pre*2+1]
 
-                this.get(`${i}-control`).setAttrs(
+                this.get(i, `control`).setAttrs(
                     {x:preX+(curX-preX)/2, y:preY+(curY-preY)/2 })
             }
             pre = i
         }
     }
 
-    private get(name: string) {
-        return this.findOne(`.${name}`) || this.create(name)
+    private get(index: number, type: string) {
+        return this.findOne(`.${index}-${type}`) || this.create(index, type)
     }
 
-    private create(name: string) {
-        let point = new Konva.Circle({name, radius: 10})
+    private create(index: number, type: string) {
+        let point = new Konva.Circle({name: `${index}-${type}`, radius: 10})
+        if (type === 'anchor') {
+            point.draggable(true)
+        }
         this.add(point)
         return point
     }

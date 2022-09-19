@@ -40,6 +40,15 @@ describe('line editor', () => {
         expect(editor.findOne('.1-control').getAttrs()).toMatchObject({x: 50, y: 50})
     });
     //TODO change line points when dragging anchor
+    it('should change line points when dragging anchor', function () {
+        let line = new Konva.Line({points: [10, 10, 30, 30]})
+        let editor = new LineEditor()
+        editor.attach(line)
+
+        let anchor = editor.findOne('.1-anchor')
+
+        expect(anchor.draggable()).toEqual(true)
+    });
     //TODO add new anchor on editor when dragging control point
     //TODO remove anchor when double click anchor
 })
