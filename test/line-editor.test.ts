@@ -72,5 +72,18 @@ describe('line editor', () => {
         expect(editor.findOne('.1-control').getAttrs()).toMatchObject({x: 17.5, y: 20})
         expect(editor.findOne('.2-control').getAttrs()).toMatchObject({x: 27.5, y: 30})
     })
-    //TODO remove anchor when double click anchor
+
+    it('should remove anchor when double click anchor', function () {
+        let line = new Konva.Line({points: [10, 10, 20, 20, 30, 30]})
+        let editor = new LineEditor()
+        editor.attach(line)
+
+        let anchor = editor.findOne('.1-anchor')
+        anchor.fire('dblclick', {} as MouseEvent)
+
+        expect(line.points()).toEqual([10, 10, 30, 30])
+        expect(editor.findOne('.1-anchor').getAttrs()).toMatchObject({x: 30, y: 30})
+        expect(editor.findOne('.2-anchor')).toBeUndefined()
+        expect(editor.findOne('.2-control')).toBeUndefined()
+    })
 })
